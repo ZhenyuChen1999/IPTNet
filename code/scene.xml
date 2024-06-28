@@ -1,0 +1,63 @@
+<?xml version='1.0'?>
+
+<scene version="0.6.0">
+	<integrator type="volpath">
+	</integrator>
+
+	<sensor type="perspective">
+		<float name="farClip" value="50"/>
+		<float name="focusDistance" value="1.54398"/>
+		<float name="fov" value="27.5"/>
+		<string name="fovAxis" value="x"/>
+		<float name="nearClip" value="0.001"/>
+		<transform name="toWorld">
+
+			<lookat target="0.0,0.0,0.3" origin="0.0,2.0,0.3" up="0,0,1"/>
+		</transform>
+
+		<sampler type="ldsampler">
+			<integer name="sampleCount" value="256"/>
+		</sampler>
+
+		<film type="hdrfilm">
+			<boolean name="attachLog" value="false"/>
+			<boolean name="banner" value="false"/>
+			<string name="fileFormat" value="openexr"/>
+			<integer name="height" value="256"/>
+			<integer name="width" value="256"/>
+
+			<rfilter type="gaussian"/>
+		</film>
+	</sensor>
+
+	<shape type="obj">
+		<string name="filename" value="$obj"/>
+		 <medium  type="homogeneous" name="interior">
+			<rgb  name="albedo"  value="$albedo"/>
+			<rgb  name="sigmaT"  value="$sigmaT"/>
+			<phase type="hg">
+				<float name="g" value="$gValue"/>
+			</phase>
+
+        </medium>
+	</shape>
+
+	<shape type="obj">
+		<string name="filename" value="renderObj/plane_big.obj"/>
+		<bsdf type="diffuse">
+			<srgb name="reflectance" value="0.2"/>
+		</bsdf>
+	</shape>
+
+	<shape  type="sphere">
+	 	<transform  name="toWorld">
+			<scale value="0.2"/>
+			<translate  $lightLocation/>
+		</transform>
+        <emitter  type="area">
+                <spectrum  name="radiance"  value="$radiance"/>
+        </emitter>
+	</shape>
+
+
+</scene>
